@@ -3,6 +3,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: progressive-delivery-v1
+  namespace: progressive
 spec:
   replicas: 3
   selector:
@@ -50,6 +51,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: progressive-delivery-v2
+  namespace: progressive
 spec:
   replicas: 1
   selector:
