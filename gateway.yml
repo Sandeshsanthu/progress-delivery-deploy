@@ -1,0 +1,15 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: my-gateway  # <--- This is your Gateway name
+  namespace: progressive
+spec:
+  selector:
+    istio: ingressgateway # This must match your Istio Ingress pod labels
+  servers:
+  - port:
+      number: 80
+      name: http
+      protocol: HTTP
+    hosts:
+    - "*"
