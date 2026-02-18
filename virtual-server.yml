@@ -8,7 +8,7 @@ spec:
   hosts:
     - "*"
   gateways: 
-    - istio-system/my-gateway
+    - default/my-gateway
   http:
     - route:
         - destination:
