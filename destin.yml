@@ -7,10 +7,10 @@ metadata:
 spec:
   host: progressive-delivery.progressive.svc.cluster.local
   subsets:
-    - name: v1
+    - name: stable
       labels:
-        version: v1
-    - name: v2
+        rollouts-pod-template-hash: stable
+    - name: canary
       labels:
-        version: v2
+        rollouts-pod-template-hash: canary
 

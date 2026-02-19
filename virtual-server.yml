@@ -10,17 +10,18 @@ spec:
   gateways: 
     - default/my-gateway
   http:
-    - route:
+    - name: primary
+      route:
         - destination:
             host: progressive-delivery.progressive.svc.cluster.local
-            subset: v1
+            subset: stable
             port:
               number: 80 # This matches the 'port' in your Service
-          weight: 90
+          weight: 100
         - destination:
             host: progressive-delivery.progressive.svc.cluster.local
-            subset: v2
-            port:
+            subset: canary
+            port: 
               number: 80 # This matches the 'port' in your Service
-          weight: 10
+          weight: 0
 
