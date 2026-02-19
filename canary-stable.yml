@@ -4,13 +4,18 @@ metadata:
   name: progressive-delivery
   namespace: progressive
 spec:
-  replicas: 2 # Reduced from 4 to 2 to save CPU resources
+  replicas: 2 
   revisionHistoryLimit: 3
   selector:
     matchLabels:
       app: progressive-delivery
   template:
     metadata:
+      # ADDED THESE ANNOTATIONS TO ENABLE METRICS SCRAPING
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/path: "/stats/prometheus"
+        prometheus.io/port: "15020"
       labels:
         app: progressive-delivery
     spec:
@@ -19,7 +24,8 @@ spec:
           image: sandeshs/progressive-delivery:v1
           ports:
             - containerPort: 8000
-          resources: # Added to solve "Insufficient CPU"
+              name: http-web 
+          resources: 
             requests:
               cpu: "50m"
               memory: "64Mi"
@@ -67,7 +73,7 @@ spec:
             canarySubsetName: canary
       steps:
         - setWeight: 10
-        - pause: {duration: 30s} # Added pause to allow analysis to run
+        - pause: {duration: 30s} 
         - analysis:
             templates:
               - templateName: pd-slo-checks
